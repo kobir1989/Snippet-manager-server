@@ -12,7 +12,8 @@ router.get("/", async (req, res) => {
 //Post Route
 router.post("/", async (req, res) => {
   try {
-    const { title, description, code } = req.body;
+    const { title, description, code } = req.body.snippetInpuptData;
+    console.log("POST",title, description, code)
     if (!(title && description && code)) {
       return res.status(400).json({ errorMessage: "You need to enter at least description or some code." });
     }
@@ -22,6 +23,7 @@ router.post("/", async (req, res) => {
       code,
     });
     await newSnippet.save();
+    res.status(200).json({message: "Snippet saved successfully"})
   } catch (error) {
     res.status(500).send();
   }
@@ -51,12 +53,13 @@ router.delete("/:id", async (req, res) => {
 //Put Router
 router.put("/:id", async (req, res) => {
   try {
-    const { title, description, code } = req.body;
+    const { title, description, code } = req.body.snippetInpuptData;
+    console.log("PUT",req.body)
     if (!(title && description && code)) {
       return res.status(400).json({ errorMessage: "Title, Description, Code can not be empty" });
     }
     const snippetId = req.params.id;
-    console.log(snippetId);
+    console.log("PUT_ID",snippetId);
     if (!snippetId) {
       return res.status(400).json({ errorMessage: "Snippet id not found" });
     }
