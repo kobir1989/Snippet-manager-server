@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "./Snippet.scss"
 
 const Snippet = ({ snippet, getSnippet, onEditSnippet }) => {
 
@@ -14,15 +15,15 @@ const Snippet = ({ snippet, getSnippet, onEditSnippet }) => {
 
   return (
     <div className="snippet">
-      {snippet.title && <h2>{snippet.title}</h2>}
-      {snippet.description && <p>{snippet.description}</p>}
+      {snippet.title && <h2 className="title">{snippet.title}</h2>}
+      {snippet.description && <p className="description">{snippet.description}</p>}
       {snippet.code && (
-        <pre>
+        <pre className="code">
           <code>{snippet.code}</code>
         </pre>
       )}
-      <button onClick={()=>{onEditSnippet(snippet)}}>Edit</button>
-      <button onClick={deleteSnippetHandler}>Delete</button>
+      <button className="btn btn-edit" onClick={()=>{onEditSnippet(snippet)}}>Edit</button>
+      <button className="btn btn-delete" onClick={deleteSnippetHandler}>Delete</button>
     </div>
   );
 };

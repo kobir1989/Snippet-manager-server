@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgb(212, 211, 211);
+  padding-bottom: 1rem;
+  .nav__link {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .link__text {
+    font-size: 1rem;
+    letter-spacing: 0.6px;
+    border: 1px solid rgb(211, 209, 209);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    &:hover {
+      box-shadow: var(--box-shadow);
+    }
+  }
+}

@@ -3,6 +3,7 @@ import Navbar from "../Nav/Nabbar";
 import axios from "axios";
 import Snippet from "./Snippet";
 import SnippetEditor from "../SnippetEditor/SnippetEditor";
+import "./Home.scss";
 
 const Home = () => {
   const [snippet, setSnippet] = useState([]);
@@ -42,7 +43,7 @@ const Home = () => {
     <div className="home">
       <Navbar />
       {!openEditor && (
-        <button
+        <button className="btn btn-add"
           onClick={() => {
             setOpenEditor(true);
           }}
