@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 const dbConnector = require("./config/database");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 app.use(
   cors({
@@ -12,9 +13,10 @@ app.use(
   })
 );
 
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+
 
 //Routes
 app.use("/snippet", require("./routers/snippetRouter"));
