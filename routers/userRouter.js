@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    const { name, email, password, confirmPassword } = req.body.registerData;
     console.log(name, email, password, confirmPassword);
     if (!(name && email && password && confirmPassword)) {
       return res.status(400).json({ errorMessage: "Please enter all required fields" });
@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body.loginData;
     console.log(email, password);
     if (!(email && password)) {
       return res.status(400).json({ errorMessage: "Please enter all required fields" });
@@ -63,6 +63,27 @@ router.post("/login", async (req, res) => {
     res.cookie("token", token, { httpOnly: true }).send();
   } catch (error) {
     res.status(500).json({ errorMessage: "Something went wrong" });
+  }
+});
+
+router.get("/loggedIn", (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.json(null);
+    }
+    const validateUser = jwt.verify(token, process.env.JWT_SECRET);
+    res.json(validateUser.id);
+  } catch (error) {
+    return res.json(null);
+  }
+});
+
+router.get("/logout", (req, res) => {
+  try {
+    res.clearCookie("token").send();
+  } catch (error) {
+    return res.json(null);
   }
 });
 
