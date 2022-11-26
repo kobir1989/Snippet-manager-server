@@ -20,7 +20,7 @@ router.post("/", auth, async (req, res) => {
     console.log("POST", title, description, code);
 
     if (!(title && description && code)) {
-      return res.status(400).json({ errorMessage: "You need to enter at least description or some code." });
+      return res.status(400).json({ errorMessage: "Title, Description, Code can not be empty" });
     }
 
     const newSnippet = new Snippet({
