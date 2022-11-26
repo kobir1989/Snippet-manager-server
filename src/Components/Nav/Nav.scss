@@ -18,4 +18,15 @@
       box-shadow: var(--box-shadow);
     }
   }
+  .logout-btn{
+    border: 1px solid rgb(211, 209, 209);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    letter-spacing: 0.6px;
+    font-weight: 500;
+    &:hover {
+      box-shadow: var(--box-shadow);
+    }
+  }
 }

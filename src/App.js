@@ -1,16 +1,23 @@
+import { Route, Routes } from "react-router-dom";
+import Home from "./Components/Home/Home";
+import "./style/index.scss";
+import Login from "./Components/Login/Login";
+import Register from "./Components/Register/Register";
+import axios from "axios";
+import {UserContextProvider} from "./Store/auth-context";
 
-import {Route, Routes} from "react-router-dom"
-import Home from './Components/Home/Home';
-import "./style/index.scss"
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
     <div className="container">
-     <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/login' element={''} />
-      <Route path='/register' element={''} />
-     </Routes>
+      <UserContextProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </UserContextProvider>
     </div>
   );
 }

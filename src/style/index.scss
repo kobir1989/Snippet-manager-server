@@ -45,3 +45,13 @@
   textarea{
     height: 6rem;
   }
+  form {
+    border: 1px solid rgb(219, 219, 219);
+    padding: 2rem 1.5rem;
+    border-radius: 8px;
+    background-color: var(--light-color);
+
+    &:hover {
+      box-shadow: var(--box-shadow);
+    }
+  }
