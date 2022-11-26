@@ -14,24 +14,27 @@
     margin-bottom: 1rem;
   }
   .code {
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: 5px;
     background-color: var(--code);
     font-family: monospace;
     font-size: 1.3rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: scroll;
+    text-overflow:ellipsis;
+    color: rgb(147, 175, 141)
   }
   .btn-delete,
   .btn-edit {
     @include btn;
     margin-right: 1rem;
   }
-   .btn-edit 
-  {
-    background-color:var(--blue);
+  .btn-edit {
+    background-color: var(--blue);
     color: var(--light-color);
-
   }
-  .btn-delete{
+  .btn-delete {
     background-color: var(--danger);
     color: var(--light-color);
   }
