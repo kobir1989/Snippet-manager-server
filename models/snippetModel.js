@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const User = require("./User");
 
 const snippetSchema = new Schema(
   {
@@ -10,6 +11,11 @@ const snippetSchema = new Schema(
     },
     code: {
       type: String,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: User,
+      require: true,
     },
   },
   {
