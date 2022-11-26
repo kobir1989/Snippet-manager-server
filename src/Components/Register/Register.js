@@ -3,12 +3,14 @@ import Nabbar from "../Nav/Nabbar";
 import "./Register.scss";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
   const navigate = useNavigate();
   const registerHandler = async (e) => {
     e.preventDefault();
@@ -18,14 +20,17 @@ const Register = () => {
       password,
       confirmPassword,
     };
-    console.log(registerData);
     try {
       const response = await axios.post("http://localhost:5000/auth", { registerData });
       if (response.status === 200) {
         navigate("/login");
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        if (error.response.data.errorMessage) {
+          setErrorMsg(error.response.data.errorMessage);
+        }
+      }
     }
   };
 
@@ -35,6 +40,7 @@ const Register = () => {
       <div className="auth__form">
         <form onSubmit={registerHandler}>
           <h2 className="form__title">Create a new account</h2>
+          <ErrorMessage message={errorMsg} />
           <label htmlFor="user-name">Full name</label>
           <input
             type="text"

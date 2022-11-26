@@ -5,3 +5,9 @@
     box-shadow: var(--box-shadow);
   }
 }
+@mixin error-border() {
+  border: 1px solid #c02929;
+}
+@mixin error-text() {
+  color:#c02929;
+}

@@ -19,7 +19,7 @@ const Nabbar = () => {
       </h1>
 
       <div className="nav__link">
-        {!user ? (
+        {user === null ? (
           <>
             <Link to={"/login"}>
               <h2 className="link__text">Login</h2>

@@ -4,10 +4,12 @@ import "./Login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../../Store/auth-context";
+import ErrorMessage from "../ErrorMessage/ErrorMessage"
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null)
   const navigate = useNavigate();
   const {getUser} = useContext(UserContext)
   const loginHandler = async (e) => {
@@ -16,15 +18,21 @@ const Login = () => {
       email,
       password,
     };
-    console.log(loginData);
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", { loginData });
+      const res = await axios.post("http://localhost:5000/auth/login", { loginData });
       await getUser()
-      if(response.status === 200){
+      if(res.status === 200){
         navigate("/")
       }
     } catch (error) {
       console.log(error);
+      if(error.response){
+        if(error.response.data.errorMessage){
+          setErrorMsg(error.response.data.errorMessage)
+          console.log(error.response);
+        }
+      }
+     return;
     }
   };
 
@@ -34,7 +42,9 @@ const Login = () => {
       <div className="login__form">
         <form onSubmit={loginHandler}>
           <h2 className="form__title">Login to your account</h2>
-          <label htmlFor="email">Email</label>
+          {errorMsg && <ErrorMessage message={errorMsg} />}
+         <div>
+         <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
@@ -43,7 +53,9 @@ const Login = () => {
               setEmail(e.target.value);
             }}
           />
-          <label htmlFor="password">Password</label>
+         </div>
+         <div>
+         <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
@@ -52,6 +64,7 @@ const Login = () => {
               setPassword(e.target.value);
             }}
           />
+         </div>
           <button type="submit" className="btn btn-login">
             Login
           </button>

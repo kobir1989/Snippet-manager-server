@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./SnippetEditor.scss";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 const SnippetEditor = ({ openEditor, getSnippet, editSnippetData }) => {
   console.log(editSnippetData);
   const [editorTitle, setEditorTitle] = useState("");
   const [editorDescription, setEditorDescription] = useState("");
   const [editorCode, setEditorCode] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     if (editSnippetData) {
-      setEditorTitle(editSnippetData.title );
+      setEditorTitle(editSnippetData.title);
       setEditorDescription(editSnippetData.description);
-      setEditorCode(editSnippetData.code );
+      setEditorCode(editSnippetData.code);
     }
   }, [editSnippetData]);
 
@@ -37,7 +39,11 @@ const SnippetEditor = ({ openEditor, getSnippet, editSnippetData }) => {
         await axios.put(`http://localhost:5000/snippet/${editSnippetData._id}`, { snippetInpuptData });
       }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        if (error.response.data.errorMessage) {
+          return setErrorMsg(error.response.data.errorMessage);
+        }
+      }
     }
     getSnippet();
     cancelBtnHandler();
@@ -50,6 +56,7 @@ const SnippetEditor = ({ openEditor, getSnippet, editSnippetData }) => {
     <div>
       <div className="snippet-editor">
         <form onSubmit={submitHandler}>
+          <ErrorMessage message={errorMsg} />
           <label htmlFor="editor-title">Title of your Snippet</label>
           <input
             type="text"
@@ -76,8 +83,12 @@ const SnippetEditor = ({ openEditor, getSnippet, editSnippetData }) => {
               setEditorCode(e.target.value);
             }}
           />
-          <button className="btn btn-save" type="submit">Save snippet</button>
-          <button className="btn btn-cancel" onClick={cancelBtnHandler}>Cancel</button>
+          <button className="btn btn-save" type="submit">
+            Save snippet
+          </button>
+          <button className="btn btn-cancel" onClick={cancelBtnHandler}>
+            Cancel
+          </button>
         </form>
       </div>
     </div>

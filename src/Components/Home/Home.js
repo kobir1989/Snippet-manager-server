@@ -43,7 +43,7 @@ const Home = () => {
   };
   return (
     <div className="home">
-      {user ? (
+      {user !== null ? (
         <>
           <Navbar />
           {!openEditor && (

@@ -6,6 +6,7 @@ const Snippet = ({ snippet, getSnippet, onEditSnippet }) => {
 
   const deleteSnippetHandler = async () => {
     try {
+      if(window.confirm("Do you want to delete this snippet?"))
       await axios.delete(`http://localhost:5000/snippet/${snippet._id}`);
       getSnippet();
     } catch (error) {
