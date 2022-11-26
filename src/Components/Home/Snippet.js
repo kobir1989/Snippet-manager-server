@@ -1,13 +1,11 @@
 import React from "react";
 import axios from "axios";
-import "./Snippet.scss"
+import "./Snippet.scss";
 
 const Snippet = ({ snippet, getSnippet, onEditSnippet }) => {
-
   const deleteSnippetHandler = async () => {
     try {
-      if(window.confirm("Do you want to delete this snippet?"))
-      await axios.delete(`http://localhost:5000/snippet/${snippet._id}`);
+      if (window.confirm("Do you want to delete this snippet?")) await axios.delete(`http://localhost:5000/snippet/${snippet._id}`);
       getSnippet();
     } catch (error) {
       console.log(error);
@@ -23,8 +21,17 @@ const Snippet = ({ snippet, getSnippet, onEditSnippet }) => {
           <code>{snippet.code}</code>
         </pre>
       )}
-      <button className="btn btn-edit" onClick={()=>{onEditSnippet(snippet)}}>Edit</button>
-      <button className="btn btn-delete" onClick={deleteSnippetHandler}>Delete</button>
+      <button
+        className="btn btn-edit"
+        onClick={() => {
+          onEditSnippet(snippet);
+        }}
+      >
+        Edit
+      </button>
+      <button className="btn btn-delete" onClick={deleteSnippetHandler}>
+        Delete
+      </button>
     </div>
   );
 };
